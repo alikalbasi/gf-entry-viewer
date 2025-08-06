@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Gravity Form Entry Viewer
- * Description: A secure, styled, and professional viewer for Gravity Forms entries accessible at /gf-entries.
- * Version: 5.0
+ * Description: A secure, styled, and professional viewer for Gravity Forms entries with auto-updates.
+ * Version: 6.0
  * Author: Ali Kalbasi
  * Author URI: https://alikalbasi.ir
  */
@@ -11,6 +11,22 @@ if (!defined('ABSPATH')) exit;
 
 define('GFEV_PATH', plugin_dir_path(__FILE__));
 define('GFEV_URL', plugin_dir_url(__FILE__));
+
+// --- Auto-Update Feature ---
+require GFEV_PATH . 'lib/plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+try {
+    $myUpdateChecker = PucFactory::buildUpdateChecker(
+        'https://github.com/alikalbasi/gf-entry-viewer/',
+        __FILE__,
+        'gf-entry-viewer'
+    );
+    $myUpdateChecker->setBranch('main'); // Or 'master'
+} catch (Exception $e) {
+    // Handle exception if needed, e.g., log error
+}
+// --- End Auto-Update Feature ---
 
 class Gravity_Form_Entry_Viewer {
 
@@ -22,9 +38,6 @@ class Gravity_Form_Entry_Viewer {
 
     public function setup_rewrite_rules() {
         add_rewrite_rule('^gf-entries/?$', 'index.php?gf_entries_page=1', 'top');
-        // Flush rewrite rules on activation/deactivation for reliability
-        register_deactivation_hook(__FILE__, 'flush_rewrite_rules');
-        register_activation_hook(__FILE__, 'flush_rewrite_rules');
     }
 
     public function add_query_vars($vars) {
