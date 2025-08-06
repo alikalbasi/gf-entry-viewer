@@ -1,71 +1,65 @@
 /*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
+>>> TABLE OF CONTENTS - V8.0 "KHAFAN" REDESIGN
 ----------------------------------------------------------------
 # General & Layout
 # Header & Controls
 # Grid & Cards
-# Card Header & Body
-# Fields & Values
+# Card: Header, Body, Fields
+# Special Field Types (Long Text)
 # Status Badges
 # Image & File Display
 # Pagination
-# Responsive
+# Responsive Design
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
 # General & Layout
 --------------------------------------------------------------*/
 .gfev-body {
-    background-color: #f9fafb;
+    background-color: #f7f8fc;
     margin: 0;
-    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: #374151;
+    font-family: 'Vazirmatn', sans-serif;
+    color: #4a5568;
 }
 
 .gfev-wrapper {
-    max-width: 1600px;
-    margin: 2rem auto;
-    padding: 1rem 2rem;
+    max-width: 1280px;
+    margin: 3rem auto;
+    padding: 1rem;
 }
 
 /*--------------------------------------------------------------
 # Header & Controls
 --------------------------------------------------------------*/
 .gfev-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     text-align: center;
 }
-
 .gfev-header h1 {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    color: #1f2937;
+    color: #1a202c;
     margin-bottom: 1.5rem;
 }
-
-.gfev-controls {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
 .gfev-controls select {
-    padding: 0.75rem 1.25rem;
+    padding: 0.75rem 1.5rem;
     font-family: 'Vazirmatn', sans-serif;
     font-size: 1rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid #e2e8f0;
     border-radius: 0.5rem;
     background-color: #fff;
-    min-width: 300px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    min-width: 320px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.2s ease-in-out;
 }
-
+.gfev-controls select:hover {
+    border-color: #cbd5e0;
+}
 .gfev-controls select:focus {
     outline: none;
     border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
 }
 
 /*--------------------------------------------------------------
@@ -73,96 +67,102 @@
 --------------------------------------------------------------*/
 .gfev-entries-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr; /* Single column layout for entries */
+    gap: 2.5rem;
 }
-
 .gfev-no-entries {
-    grid-column: 1 / -1;
     text-align: center;
     font-size: 1.25rem;
-    color: #6b7280;
+    color: #718096;
     background-color: #fff;
     padding: 4rem 2rem;
     border-radius: 0.75rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e2e8f0;
+}
+.gfev-entry-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid #4f46e5;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gfev-entry-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-4px);
 }
 
 /*--------------------------------------------------------------
-# Card Header & Body
+# Card: Header, Body, Fields
 --------------------------------------------------------------*/
-.gfev-entry-card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
-    display: flex;
-    flex-direction: column;
-}
-
 .gfev-card-header {
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-.gfev-entry-id {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: #4f46e5;
-}
-
-.gfev-entry-date {
-    font-size: 0.9rem;
-    color: #6b7280;
-}
+.gfev-entry-id { font-weight: 700; font-size: 1.25rem; color: #1a202c; }
+.gfev-entry-date { font-size: 0.9rem; color: #718096; }
 
 .gfev-card-body {
-    padding: 1.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem; /* Increased gap for more space */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.gfev-field {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+.gfev-entry-card .gfev-card-body .gfev-field:last-child {
+    border-bottom: none;
+}
+.gfev-field strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-left: 1rem;
+}
+.gfev-field > span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1a202c;
+    text-align: left;
 }
 
 /*--------------------------------------------------------------
-# Fields & Values (IMPROVED READABILITY)
+# Special Field Types (Long Text)
 --------------------------------------------------------------*/
-.gfev-field {
-    display: flex;
+.gfev-field.is-long-text {
     flex-direction: column;
-    gap: 0.75rem; /* Increased gap */
+    align-items: flex-start;
+    gap: 0.75rem;
 }
-
-.gfev-field.full-width {
-    grid-column: 1 / -1;
-}
-
-.gfev-field strong {
-    font-size: 1rem; /* Increased font size */
-    font-weight: 700; /* Bolder */
-    color: #111827; /* Darker for more contrast */
-}
-
-.gfev-field span {
-    font-size: 1.05rem; /* Increased font size */
-    color: #4b5563;
-    word-break: break-word;
-    line-height: 1.7; /* Increased line height */
+.gfev-long-text-value {
+    width: 100%;
+    background-color: #f7f8fc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #2d3748;
 }
 
 /*--------------------------------------------------------------
 # Status Badges
 --------------------------------------------------------------*/
 .gfev-status-badge {
-    padding: 0.3rem 0.85rem;
+    padding: 0.25rem 0.85rem;
     border-radius: 9999px;
     font-size: 0.8rem;
     font-weight: 700;
-    align-self: flex-start;
     border: 1px solid transparent;
 }
+/* Colors remain the same */
 .status-paid { background-color: #dcfce7; color: #166534; border-color: #86efac; }
 .status-processing { background-color: #fef9c3; color: #854d0e; border-color: #fde047; }
 .status-failed { background-color: #fee2e2; color: #991b1b; border-color: #fca5a5; }
@@ -177,90 +177,78 @@
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+    justify-content: flex-end;
 }
-
-.gfev-image-preview-link {
-    display: block;
-    line-height: 0; /* Prevents extra space under the image */
-}
-
+.gfev-image-preview-link { display: block; line-height: 0; }
 .gfev-image-preview {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border-radius: 0.5rem;
-    border: 1px solid #e5e7eb;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid #e2e8f0;
 }
-
-.gfev-image-preview:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
 .gfev-file-button {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1rem;
-    background-color: #4f46e5;
-    color: #fff;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: #4f46e5;
+    border: 2px solid #cbd5e0;
     border-radius: 0.5rem;
     text-decoration: none;
     font-weight: 600;
+    transition: all 0.2s ease-in-out;
 }
-.gfev-file-button:hover { background-color: #4338ca; }
-.gfev-file-button .gfev-icon { color: #e0e7ff; }
+.gfev-file-button:hover {
+    background-color: #4f46e5;
+    color: #fff;
+    border-color: #4f46e5;
+}
+.gfev-file-button .gfev-icon {
+    transition: color 0.2s ease-in-out;
+}
+.gfev-file-button:hover .gfev-icon {
+    color: #fff;
+}
 
 /*--------------------------------------------------------------
 # Pagination
 --------------------------------------------------------------*/
-.gfev-pagination {
-    margin-top: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.gfev-pagination { margin-top: 3rem; display: flex; justify-content: center; align-items: center; }
 .gfev-pagination .page-numbers {
-    padding: 0.6rem 1rem;
+    padding: 0.75rem 1.1rem;
     margin: 0 0.25rem;
     border-radius: 0.5rem;
     text-decoration: none;
     color: #4f46e5;
     background-color: #fff;
-    border: 1px solid #dee2e6;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
 }
-.gfev-pagination .page-numbers:hover {
-    background-color: #eef2ff;
-    color: #4338ca;
-}
+.gfev-pagination .page-numbers:hover { background-color: #eef2ff; }
 .gfev-pagination .page-numbers.current {
     background-color: #4f46e5;
     border-color: #4f46e5;
     color: #fff;
-    font-weight: 700;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
 }
 
 /*--------------------------------------------------------------
-# Responsive
+# Responsive Design
 --------------------------------------------------------------*/
 @media (max-width: 768px) {
-    .gfev-wrapper {
-        padding: 1rem;
-    }
-    .gfev-controls {
+    .gfev-wrapper { margin: 2rem auto; padding: 0.5rem; }
+    .gfev-controls { flex-direction: column; }
+    .gfev-field {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
-    .gfev-card-body {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .gfev-entries-grid {
-        grid-template-columns: 1fr;
-    }
-    .gfev-header h1 {
-        font-size: 1.75rem;
+    .gfev-field > span,
+    .gfev-file-gallery {
+        text-align: right;
+        justify-content: flex-start;
     }
 }

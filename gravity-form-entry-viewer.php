@@ -3,7 +3,7 @@
  * Plugin Name:       Gravity Form Entry Viewer
  * Plugin URI:        https://github.com/alikalbasi/gf-entry-viewer/
  * Description:       A secure, styled, and professional viewer for Gravity Forms entries with auto-updates from GitHub.
- * Version:           7.1
+ * Version:           8.0
  * Author:            Ali Kalbasi
  * Author URI:        https://alikalbasi.ir
  * License:           MIT
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 define( 'GFEV_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GFEV_URL', plugin_dir_url( __FILE__ ) );
-define( 'GFEV_VERSION', '7.1' ); // Updated version number
+define( 'GFEV_VERSION', '8.0' ); // Updated version number for the major redesign
 
 /**
  * Set up the GitHub Plugin Updater.
