@@ -1,6 +1,6 @@
 # Gravity Form Entry Viewer
 
-[![Plugin Version](https://img.shields.io/badge/Version-1.1.0-blue.svg)](https://github.com/alikalbasi/gf-entry-viewer)
+[![Plugin Version](https://img.shields.io/badge/Version-1.1.1-blue.svg)](https://github.com/alikalbasi/gf-entry-viewer)
 [![Required WordPress Version](https://img.shields.io/badge/WordPress-5.5%2B-orange.svg)](https://wordpress.org/download/)
 [![Required Gravity Forms Version](https://img.shields.io/badge/Gravity%20Forms-2.5%2B-red.svg)](https://www.gravityforms.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)

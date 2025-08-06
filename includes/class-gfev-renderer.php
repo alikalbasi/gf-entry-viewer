@@ -2,14 +2,11 @@
 /**
  * GFEV_Renderer Class
  * @package GF_Entry_Viewer
- * @version 1.1.0
+ * @version 1.1.1
  */
 class GFEV_Renderer {
 
-    private $form_id;
-    private $current_page;
-    private $payment_status;
-    private $login_error = '';
+    private $form_id, $current_page, $payment_status, $login_error = '';
 
     public function __construct() {
         $this->form_id        = isset( $_GET['form_id'] ) ? absint( $_GET['form_id'] ) : null;
@@ -81,7 +78,6 @@ class GFEV_Renderer {
     }
 
     private function render_entries_viewer() {
-        // Data Fetching
         $forms = GFAPI::get_forms();
         if ( empty( $this->form_id ) && ! empty( $forms ) ) { $this->form_id = $forms[0]['id']; }
         $page_size = 10;
@@ -90,7 +86,6 @@ class GFEV_Renderer {
         $entries = $this->form_id ? GFAPI::get_entries( $this->form_id, $search_criteria, null, $paging ) : [];
         $total_count = $this->form_id ? GFAPI::count_entries( $this->form_id, $search_criteria ) : 0;
 
-        // Setup Page
         add_filter( 'show_admin_bar', '__return_false' );
         $this->enqueue_assets();
         ?>
@@ -195,7 +190,10 @@ class GFEV_Renderer {
                     echo '<strong>' . esc_html( GFCommon::get_label( $field ) ) . ':</strong>';
                     echo '<div class="gfev-value-container">';
 
-                    if ( $field->type === 'phone' ) {
+                    // FIX: Check type, inputType, AND label to reliably detect phone fields.
+                    $is_phone_field = ( $field->type === 'phone' || $field->inputType === 'tel' || preg_match( '/(تلفن|موبایل|همراه|تماس)/', $field->label ) );
+
+                    if ( $is_phone_field ) {
                         $this->render_phone_value( $value );
                     } else {
                         $files = json_decode( $value, true );

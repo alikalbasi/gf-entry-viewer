@@ -17,8 +17,20 @@
 /*--------------------------------------------------------------
 # General & Layout
 --------------------------------------------------------------*/
-* {
-    font-family: 'Vazirmatn', sans-serif;
+.gfev-body,
+.gfev-body h1,
+.gfev-body h2,
+.gfev-body h3,
+.gfev-body h4,
+.gfev-body p,
+.gfev-body a,
+.gfev-body div,
+.gfev-body span,
+.gfev-body label,
+.gfev-body input,
+.gfev-body select,
+.gfev-body button {
+    font-family: 'Vazirmatn', sans-serif !important; /* Use !important to override theme styles */
     box-sizing: border-box;
 }
 .gfev-body {
