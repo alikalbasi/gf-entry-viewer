@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Gravity Form Entry Viewer
  * Plugin URI:        https://github.com/alikalbasi/gf-entry-viewer/
- * Description:       A secure, styled, and professional viewer for Gravity Forms entries with auto-updates from GitHub.
- * Version:           8.0
+ * Description:       A secure, styled, and professional viewer for Gravity Forms entries with a custom login page and auto-updates.
+ * Version:           1.0.0
  * Author:            Ali Kalbasi
  * Author URI:        https://alikalbasi.ir
  * License:           MIT
@@ -23,15 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 define( 'GFEV_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GFEV_URL', plugin_dir_url( __FILE__ ) );
-define( 'GFEV_VERSION', '8.0' ); // Updated version number for the major redesign
+define( 'GFEV_VERSION', '1.0.0' ); // Final version for first public release
 
 /**
  * Set up the GitHub Plugin Updater.
- * This allows the plugin to be updated directly from the GitHub repository.
  */
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-// Check if the library exists before requiring it to prevent fatal errors.
 if ( file_exists( GFEV_PATH . 'lib/plugin-update-checker/plugin-update-checker.php' ) ) {
     require GFEV_PATH . 'lib/plugin-update-checker/plugin-update-checker.php';
 
@@ -67,7 +65,6 @@ class Gravity_Form_Entry_Viewer {
 
     /**
      * Sets up the custom rewrite rule for the /gf-entries/ endpoint.
-     * This makes the URL user-friendly.
      */
     public function setup_rewrite_rules() {
         add_rewrite_rule( '^gf-entries/?$', 'index.php?gf_entries_page=1', 'top' );
