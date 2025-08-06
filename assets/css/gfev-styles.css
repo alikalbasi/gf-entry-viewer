@@ -6,22 +6,26 @@
 # Grid & Cards
 # Card: Header, Body, Fields
 # Special Field Types (Long Text)
+# Transaction Details Section
 # Status Badges
 # Image & File Display
 # Pagination
 # Responsive Design
+# Custom Login Page
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
 # General & Layout
 --------------------------------------------------------------*/
+* {
+    font-family: 'Vazirmatn', sans-serif;
+    box-sizing: border-box;
+}
 .gfev-body {
     background-color: #f7f8fc;
     margin: 0;
-    font-family: 'Vazirmatn', sans-serif;
     color: #4a5568;
 }
-
 .gfev-wrapper {
     max-width: 1280px;
     margin: 3rem auto;
@@ -41,21 +45,27 @@
     color: #1a202c;
     margin-bottom: 1.5rem;
 }
+.gfev-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.gfev-controls form {
+    min-width: 320px;
+}
 .gfev-controls select {
+    width: 100%;
     padding: 0.75rem 1.5rem;
-    font-family: 'Vazirmatn', sans-serif;
     font-size: 1rem;
     border: 1px solid #e2e8f0;
     border-radius: 0.5rem;
     background-color: #fff;
-    min-width: 320px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
-.gfev-controls select:hover {
-    border-color: #cbd5e0;
-}
+.gfev-controls select:hover { border-color: #cbd5e0; }
 .gfev-controls select:focus {
     outline: none;
     border-color: #4f46e5;
@@ -67,7 +77,7 @@
 --------------------------------------------------------------*/
 .gfev-entries-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Single column layout for entries */
+    grid-template-columns: 1fr;
     gap: 2.5rem;
 }
 .gfev-no-entries {
@@ -116,8 +126,10 @@
     align-items: center;
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid #f1f5f9;
+    gap: 1rem;
 }
-.gfev-entry-card .gfev-card-body .gfev-field:last-child {
+.gfev-entry-card .gfev-card-body > *:last-child,
+.gfev-entry-card .gfev-card-body > .gfev-transaction-details + .gfev-field:last-child {
     border-bottom: none;
 }
 .gfev-field strong {
@@ -125,12 +137,6 @@
     font-weight: 600;
     color: #4a5568;
     margin-left: 1rem;
-}
-.gfev-field > span {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #1a202c;
-    text-align: left;
 }
 
 /*--------------------------------------------------------------
@@ -153,6 +159,30 @@
 }
 
 /*--------------------------------------------------------------
+# Transaction Details Section
+--------------------------------------------------------------*/
+.gfev-transaction-details {
+    background-color: #fafbff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1rem 1.5rem 1.5rem;
+}
+.gfev-transaction-details h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4f46e5;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+.gfev-transaction-details .gfev-field {
+    padding: 0.75rem 0;
+}
+.gfev-transaction-details .gfev-field:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/*--------------------------------------------------------------
 # Status Badges
 --------------------------------------------------------------*/
 .gfev-status-badge {
@@ -162,193 +192,11 @@
     font-weight: 700;
     border: 1px solid transparent;
 }
-/* Colors remain the same */
 .status-paid { background-color: #dcfce7; color: #166534; border-color: #86efac; }
 .status-processing { background-color: #fef9c3; color: #854d0e; border-color: #fde047; }
 .status-failed { background-color: #fee2e2; color: #991b1b; border-color: #fca5a5; }
 .status-refunded { background-color: #e0e7ff; color: #4338ca; border-color: #a5b4fc; }
 .status-unknown { background-color: #e5e7eb; color: #4b5563; border-color: #d1d5db; }
-
-/*--------------------------------------------------------------
-# Image & File Display
---------------------------------------------------------------*/
-.gfev-file-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-end;
-}
-.gfev-image-preview-link { display: block; line-height: 0; }
-.gfev-image-preview {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    border: 2px solid #e2e8f0;
-}
-.gfev-file-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    color: #4f46e5;
-    border: 2px solid #cbd5e0;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-}
-.gfev-file-button:hover {
-    background-color: #4f46e5;
-    color: #fff;
-    border-color: #4f46e5;
-}
-.gfev-file-button .gfev-icon {
-    transition: color 0.2s ease-in-out;
-}
-.gfev-file-button:hover .gfev-icon {
-    color: #fff;
-}
-
-/*--------------------------------------------------------------
-# Pagination
---------------------------------------------------------------*/
-.gfev-pagination { margin-top: 3rem; display: flex; justify-content: center; align-items: center; }
-.gfev-pagination .page-numbers {
-    padding: 0.75rem 1.1rem;
-    margin: 0 0.25rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: #4f46e5;
-    background-color: #fff;
-    border: 1px solid #e2e8f0;
-    font-weight: 600;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-}
-.gfev-pagination .page-numbers:hover { background-color: #eef2ff; }
-.gfev-pagination .page-numbers.current {
-    background-color: #4f46e5;
-    border-color: #4f46e5;
-    color: #fff;
-    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
-}
-
-/*--------------------------------------------------------------
-# Responsive Design
---------------------------------------------------------------*/
-@media (max-width: 768px) {
-    .gfev-wrapper { margin: 2rem auto; padding: 0.5rem; }
-    .gfev-controls { flex-direction: column; }
-    .gfev-field {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    .gfev-field > span,
-    .gfev-file-gallery {
-        text-align: right;
-        justify-content: flex-start;
-    }
-}
-/*--------------------------------------------------------------
-# Custom Login Page
---------------------------------------------------------------*/
-.gfev-login-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
-.gfev-login-wrapper {
-    width: 100%;
-    max-width: 420px;
-    padding: 2rem;
-}
-.gfev-login-card {
-    background: #fff;
-    padding: 2.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    text-align: center;
-}
-.gfev-login-card h1 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: #1a202c;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-.gfev-login-card p {
-    color: #718096;
-    margin-top: 0;
-    margin-bottom: 2rem;
-    font-size: 1rem;
-}
-.gfev-login-error {
-    background-color: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #fca5a5;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-.gfev-form-group {
-    margin-bottom: 1.25rem;
-    text-align: right;
-}
-.gfev-form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #2d3748;
-}
-.gfev-form-group .input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    font-family: 'Vazirmatn', sans-serif;
-    border: 1px solid #cbd5e0;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease-in-out;
-}
-.gfev-form-group .input:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
-}
-.gfev-form-options {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 1.5rem;
-}
-.gfev-remember-me {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-.gfev-form-submit .gfev-button {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #fff;
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-}
-.gfev-form-submit .gfev-button:hover {
-    background-color: #4338ca;
-}
-/* ... All styles from v8.0 are the same until the Image & File Display section ... */
-/* ... (General, Header, Grid, Cards, Fields, Long Text, Status Badges) ... */
 
 /*--------------------------------------------------------------
 # Image & File Display
@@ -359,9 +207,14 @@
     gap: 1rem;
     align-items: center;
     justify-content: flex-end;
-    flex-grow: 1; /* Allows this container to take up remaining space */
+    flex-grow: 1;
 }
-
+.gfev-value-container > span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1a202c;
+    text-align: left;
+}
 .gfev-file-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -390,38 +243,57 @@
     font-weight: 600;
     transition: all 0.2s ease-in-out;
 }
-.gfev-file-button:hover {
-    background-color: #4f46e5;
-    color: #fff;
-    border-color: #4f46e5;
-}
-.gfev-file-button .gfev-icon {
-    transition: color 0.2s ease-in-out;
-}
-.gfev-file-button:hover .gfev-icon {
-    color: #fff;
-}
+.gfev-file-button:hover { background-color: #4f46e5; color: #fff; border-color: #4f46e5; }
+.gfev-file-button .gfev-icon, .gfev-whatsapp-link .gfev-icon { transition: color 0.2s ease-in-out; }
+.gfev-file-button:hover .gfev-icon { color: #fff; }
 
-/* NEW: WhatsApp Link Styles */
 .gfev-whatsapp-link {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     padding: 0.3rem 0.8rem;
-    background-color: #f0fdf4; /* Light green background */
-    color: #15803d; /* Dark green text */
-    border: 1px solid #bbf7d0; /* Green border */
-    border-radius: 9999px; /* Pill shape */
+    background-color: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+    border-radius: 9999px;
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: 700;
     transition: all 0.2s ease-in-out;
 }
-.gfev-whatsapp-link:hover {
-    background-color: #22c55e; /* WhatsApp green */
-    color: #fff;
-    border-color: #22c55e;
+.gfev-whatsapp-link:hover { background-color: #22c55e; color: #fff; border-color: #22c55e; }
+.gfev-whatsapp-link svg { fill: currentColor; }
+
+/*--------------------------------------------------------------
+# Pagination & Responsive
+--------------------------------------------------------------*/
+.gfev-pagination { margin-top: 3rem; display: flex; justify-content: center; align-items: center; }
+.gfev-pagination .page-numbers { padding: 0.75rem 1.1rem; margin: 0 0.25rem; border-radius: 0.5rem; text-decoration: none; color: #4f46e5; background-color: #fff; border: 1px solid #e2e8f0; font-weight: 600; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+.gfev-pagination .page-numbers:hover { background-color: #eef2ff; }
+.gfev-pagination .page-numbers.current { background-color: #4f46e5; border-color: #4f46e5; color: #fff; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); }
+
+@media (max-width: 768px) {
+    .gfev-wrapper { margin: 2rem auto; padding: 0.5rem; }
+    .gfev-controls { flex-direction: column; }
+    .gfev-controls form { width: 100%; min-width: unset; }
+    .gfev-field { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .gfev-value-container { justify-content: flex-start; }
 }
-.gfev-whatsapp-link svg {
-    fill: currentColor;
-}
+
+/*--------------------------------------------------------------
+# Custom Login Page
+--------------------------------------------------------------*/
+.gfev-login-body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.gfev-login-wrapper { width: 100%; max-width: 420px; padding: 2rem; }
+.gfev-login-card { background: #fff; padding: 2.5rem; border-radius: 0.75rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); text-align: center; }
+.gfev-login-card h1 { font-size: 1.75rem; font-weight: 800; color: #1a202c; margin-top: 0; margin-bottom: 0.5rem; }
+.gfev-login-card p { color: #718096; margin-top: 0; margin-bottom: 2rem; font-size: 1rem; }
+.gfev-login-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1.5rem; text-align: center; }
+.gfev-form-group { margin-bottom: 1.25rem; text-align: right; }
+.gfev-form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #2d3748; }
+.gfev-form-group .input { width: 100%; padding: 0.75rem 1rem; font-size: 1rem; border: 1px solid #cbd5e0; border-radius: 0.5rem; transition: all 0.2s ease-in-out; }
+.gfev-form-group .input:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3); }
+.gfev-form-options { display: flex; justify-content: flex-start; margin-bottom: 1.5rem; }
+.gfev-remember-me { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; }
+.gfev-form-submit .gfev-button { width: 100%; padding: 0.85rem 1rem; font-size: 1.1rem; font-weight: 700; color: #fff; background-color: #4f46e5; border: none; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.2s ease-in-out; }
+.gfev-form-submit .gfev-button:hover { background-color: #4338ca; }

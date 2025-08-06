@@ -3,7 +3,7 @@
  * Plugin Name:       Gravity Form Entry Viewer
  * Plugin URI:        https://github.com/alikalbasi/gf-entry-viewer/
  * Description:       A secure, styled, and professional viewer for Gravity Forms entries with a custom login page and auto-updates.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Ali Kalbasi
  * Author URI:        https://alikalbasi.ir
  * License:           MIT
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 define( 'GFEV_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GFEV_URL', plugin_dir_url( __FILE__ ) );
-define( 'GFEV_VERSION', '1.0.0' ); // Final version for first public release
+define( 'GFEV_VERSION', '1.1.0' ); // Updated version number for the new feature
 
 /**
  * Set up the GitHub Plugin Updater.
@@ -40,10 +40,8 @@ if ( file_exists( GFEV_PATH . 'lib/plugin-update-checker/plugin-update-checker.p
             __FILE__, // Main plugin file.
             'gf-entry-viewer' // Plugin slug.
         );
-        // Specify the branch to check for updates.
         $gfevUpdateChecker->setBranch( 'main' );
     } catch ( Exception $e ) {
-        // Optionally log the error if the update checker fails to initialize.
         error_log( 'GF Entry Viewer update checker failed to initialize: ' . $e->getMessage() );
     }
 }
@@ -53,38 +51,21 @@ if ( file_exists( GFEV_PATH . 'lib/plugin-update-checker/plugin-update-checker.p
  */
 class Gravity_Form_Entry_Viewer {
 
-    /**
-     * Constructor.
-     * Hooks all necessary actions and filters for the plugin.
-     */
     public function __construct() {
         add_action( 'init', [ $this, 'setup_rewrite_rules' ] );
         add_filter( 'query_vars', [ $this, 'add_query_vars' ] );
         add_action( 'template_redirect', [ $this, 'display_entries_page' ] );
     }
 
-    /**
-     * Sets up the custom rewrite rule for the /gf-entries/ endpoint.
-     */
     public function setup_rewrite_rules() {
         add_rewrite_rule( '^gf-entries/?$', 'index.php?gf_entries_page=1', 'top' );
     }
 
-    /**
-     * Adds the custom query variable to WordPress's list of recognized query variables.
-     *
-     * @param array $vars The array of existing query variables.
-     * @return array The modified array of query variables.
-     */
     public function add_query_vars( $vars ) {
         $vars[] = 'gf_entries_page';
         return $vars;
     }
 
-    /**
-     * Checks if the current request is for our custom page and, if so,
-     * loads the renderer to display the page.
-     */
     public function display_entries_page() {
         if ( get_query_var( 'gf_entries_page' ) ) {
             require_once GFEV_PATH . 'includes/class-gfev-renderer.php';
@@ -95,5 +76,4 @@ class Gravity_Form_Entry_Viewer {
     }
 }
 
-// Instantiate the main plugin class to get everything started.
 new Gravity_Form_Entry_Viewer();
